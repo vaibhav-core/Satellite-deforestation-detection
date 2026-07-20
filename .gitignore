@@ -1,0 +1,6 @@
+EuroSAT/
+
+*.keras
+*.h5
+checkpoints/
+logs/
