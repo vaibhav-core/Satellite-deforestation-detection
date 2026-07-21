@@ -47,7 +47,7 @@ base_model=ResNet50(weights="imagenet",include_top=False,input_shape=(224,224,3)
 
 base_model.trainable=True
 
-for layer in base_model.layers[:-10]:
+for layer in base_model.layers[:-20]:
     layer.trainable= False
 
 model=models.Sequential([data_aug,base_model,layers.GlobalAveragePooling2D(),layers.Dense(256,activation="relu"),layers.Dropout(0.3),layers.Dense(10,activation="softmax")])

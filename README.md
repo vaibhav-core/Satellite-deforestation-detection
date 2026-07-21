@@ -136,3 +136,32 @@ Training Accuracy:
 
 Observation:
 Fine-tuning the last 10 layers improved validation accuracy from 96.28% to 97.33% while reducing validation loss from 0.1249 to 0.0915. Training accuracy increased to approximately 97.8%, indicating that the network successfully adapted higher-level ImageNet features to the EuroSAT dataset. Validation loss reached its minimum around Epoch 11 before increasing slightly in later epochs, suggesting the onset of overfitting. However, EarlyStopping restored the best-performing weights, resulting in improved generalization over the frozen backbone model.
+
+
+Experiment 5
+
+Date: 21 July 2026
+
+Objective:
+Evaluate the effect of fine-tuning by unfreezing the last 20 layers of ResNet50 while retaining the data augmentation pipeline and low learning rate.
+
+Changes:
+
+Loaded the best frozen ResNet50 model trained with data augmentation.
+Unfroze the last 20 layers of the ResNet50 backbone.
+Remaining layers stayed frozen.
+Maintained a learning rate of 1e-5 for stable fine-tuning.
+Retained the same data augmentation pipeline from Experiment 3.
+Used EarlyStopping (patience=5, restore_best_weights=True) to preserve the best-performing model.
+
+Validation Accuracy:
+97.59%
+
+Validation Loss:
+0.0718
+
+Training Accuracy:
+97.59% (evaluation accuracy on the validation pipeline after restoring the best weights; peak training accuracy during training reached approximately 98.0%.)
+
+Observation:
+Fine-tuning the last 20 layers further improved validation accuracy from 97.33% to 97.59%, while reducing validation loss from 0.0915 to 0.0718, indicating improved model confidence and generalization. Training exhibited temporary fluctuations in validation performance during the early epochs, which is expected when a larger portion of the pretrained backbone is unfrozen. After convergence, the model achieved its best performance around Epoch 9. Although subsequent epochs slightly increased training accuracy, validation loss also increased, suggesting the onset of mild overfitting
