@@ -185,7 +185,15 @@ Validation Accuracy:
 97.59%
 
 Validation Loss:
-0.0718
+0.0840
 
 Training Accuracy:
-97.59%
+97.45%
+
+Obervation:
+Fine-tuning the previously trained EuroSAT classifier by unfreezing the last 20 layers resulted in gradual improvements during the initial epochs, with validation accuracy increasing to 97.45% and validation loss decreasing to 0.0840. However, after reaching its optimum, the training accuracy continued to increase while the validation accuracy plateaued and the validation loss began to fluctuate and slightly increase. This behavior indicates the onset of mild overfitting, where the model continued to fit the training data more closely without corresponding improvements in generalization. Although the model achieved strong performance, it did not surpass the previous best model (Validation Accuracy: 97.59%, Validation Loss: 0.0718). Therefore, the earlier fine-tuned model was retained as the final classifier due to its superior generalization performance and lower validation loss.
+
+
+...
+
+---
