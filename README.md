@@ -132,10 +132,12 @@ Validation Accuracy:
 97.33%
 
 Validation Loss:
-0.0915
+0.0837
 
 Training Accuracy:
-97.83%
+97.77%
+
+![Experiment 5 Training Curves](images/exp4.png)
 
 Observation:
 Fine-tuning the last 10 layers improved validation accuracy from 96.28% to 97.33% while reducing validation loss from 0.1249 to 0.0915. Training accuracy increased to approximately 97.8%, indicating that the network successfully adapted higher-level ImageNet features to the EuroSAT dataset. Validation loss reached its minimum around Epoch 11 before increasing slightly in later epochs, suggesting the onset of overfitting. However, EarlyStopping restored the best-performing weights, resulting in improved generalization over the frozen backbone model.

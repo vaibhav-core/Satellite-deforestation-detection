@@ -94,4 +94,11 @@ plt.plot(history.history["val_loss"], label="Validation Loss")
 plt.legend()
 plt.title("Loss")
 
+plt.tight_layout()
+plt.savefig(
+    "images/exp5_curve.png",
+    dpi=300,
+    bbox_inches="tight")
+
 plt.show()
+
