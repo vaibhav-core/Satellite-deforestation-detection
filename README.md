@@ -165,6 +165,9 @@ Validation Loss:
 Training Accuracy:
 97.59% (evaluation accuracy on the validation pipeline after restoring the best weights; peak training accuracy during training reached approximately 98.0%.)
 
+
+![Experiment 5 Training Curves](images/exp5.png)
+
 Observation:
 Fine-tuning the last 20 layers further improved validation accuracy from 97.33% to 97.59%, while reducing validation loss from 0.0915 to 0.0718, indicating improved model confidence and generalization. Training exhibited temporary fluctuations in validation performance during the early epochs, which is expected when a larger portion of the pretrained backbone is unfrozen. After convergence, the model achieved its best performance around Epoch 9. Although subsequent epochs slightly increased training accuracy, validation loss also increased, suggesting the onset of mild overfitting
 
@@ -190,6 +193,8 @@ Validation Loss:
 
 Training Accuracy:
 97.45%
+
+![Experiment 5 Training Curves](images/exp6.png)
 
 Obervation:
 Fine-tuning the previously trained EuroSAT classifier by unfreezing the last 20 layers resulted in gradual improvements during the initial epochs, with validation accuracy increasing to 97.45% and validation loss decreasing to 0.0840. However, after reaching its optimum, the training accuracy continued to increase while the validation accuracy plateaued and the validation loss began to fluctuate and slightly increase. This behavior indicates the onset of mild overfitting, where the model continued to fit the training data more closely without corresponding improvements in generalization. Although the model achieved strong performance, it did not surpass the previous best model (Validation Accuracy: 97.59%, Validation Loss: 0.0718). Therefore, the earlier fine-tuned model was retained as the final classifier due to its superior generalization performance and lower validation loss.
