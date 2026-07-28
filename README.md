@@ -1,5 +1,6 @@
 # EuroSAT Land Cover Classification
 
+
 ## Model
 - Base Model: ResNet50 (ImageNet Pretrained)
 - Dataset: EuroSAT RGB
@@ -11,7 +12,7 @@
 
 ---
 
-# Experiment 1
+## Experiment 1
 
 ### Objective
 Train ResNet50 with frozen backbone.
@@ -197,3 +198,6 @@ Fine-tuning the previously trained EuroSAT classifier by unfreezing the last 20 
 ...
 
 ---
+# Classsifier
+
+The model form experiment 5 is being used as primary classifier for this project because of best val loss and accuracy
