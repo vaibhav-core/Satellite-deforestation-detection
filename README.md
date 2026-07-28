@@ -208,20 +208,27 @@ Fine-tuning the previously trained EuroSAT classifier by unfreezing the last 20 
 # Classsifier
 The classifier used throughout the remainder of this project is the model obtained from Experiment 5. This model was selected because it achieved the best overall validation performance among all experiments, obtaining a validation accuracy of 97.59% with the lowest validation loss of 0.0718, indicating the strongest generalization capability on the EuroSAT dataset.
 
-## Final Classifier Configuration
-- Backbone: ImageNet-pretrained ResNet50
-- Fine-tuning: Last 20 layers unfrozen
-- Input Size: 224 × 224 × 3
-### Data Augmentation:
+### Final Classifier Configuration
+
+- **Backbone:** ImageNet-pretrained ResNet50
+- **Fine-tuning:** Last 20 layers unfrozen
+- **Input Size:** 224 × 224 × 3
+
+#### Data Augmentation
+
 - Random Horizontal & Vertical Flip
 - Random Rotation (0.2)
 - Random Zoom (0.2)
-** Preprocessing: tf.keras.applications.resnet50.preprocess_input() **
-Pooling Layer: Global Average Pooling
-### Classification Head:
+
+- **Preprocessing:** `tf.keras.applications.resnet50.preprocess_input()`
+- **Pooling Layer:** Global Average Pooling
+
+#### Classification Head
+
 - Dense(256, ReLU)
 - Dropout(0.3)
 - Dense(10, Softmax)
-- Optimizer: Adam (learning_rate = 1e-5)
-- Loss Function: Sparse Categorical Crossentropy
-- Early Stopping: patience=5, restore_best_weights=True
+
+- **Optimizer:** Adam (`learning_rate = 1e-5`)
+- **Loss Function:** Sparse Categorical Crossentropy
+- **Early Stopping:** `patience=5`, `restore_best_weights=True`
