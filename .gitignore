@@ -4,3 +4,4 @@ EuroSAT/
 *.h5
 checkpoints/
 logs/
+.venv/
