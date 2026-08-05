@@ -1,3 +1,4 @@
+import numpy as np
 import os
 os.environ["XLA_FLAGS"] = "--xla_gpu_cuda_data_dir=/usr/lib/cuda"
 from tensorflow.keras.applications.resnet50 import preprocess_input
@@ -16,6 +17,19 @@ class LandCoverClassifier:
         "River",
         "SeaLake"
     ]
+
+    CLASS_COLORS={
+      "AnnualCrop": (255, 165, 0),          # Orange
+    "Forest": (34, 139, 34),              # Forest Green
+    "HerbaceousVegetation": (124, 252, 0),# Lawn Green
+    "Highway": (255, 255, 0),             # Yellow
+    "Industrial": (255, 0, 255),          # Magenta
+    "Pasture": (173, 255, 47),            # Yellow Green
+    "PermanentCrop": (0, 128, 0),         # Green
+    "Residential": (255, 0, 0),           # Red
+    "River": (30, 144, 255),              # Dodger Blue
+    "SeaLake": (0, 0, 255)                 #blue
+    }
 
     def __init__(self,modelpath):
         self.model=tf.keras.models.load_model(modelpath)
@@ -94,6 +108,19 @@ class LandCoverClassifier:
             grid[row][col] = prediction["class"]
         return grid
 
+    def overlay_prediction(self,img,predictions):
+        overlay = img.copy()
+        for prediction in predictions:
+            y,x=prediction["position"]
+
+            color=self.CLASS_COLORS[prediction["class"]]
+
+            rect=cv.rectangle(overlay,(x,y),(x+224,y+224),color=color,thickness=-1)
+
+        result=cv.addWeighted(overlay,.35,img,.65,0)
+
+        return result
+
 
 classifier = LandCoverClassifier(
     "/home/vaibhav/programming_projects/python/Satellite-deforestation-detection-/eurosat_resnet50_v5-finetunning20.keras")
@@ -105,3 +132,9 @@ predictions = classifier.predict_tiles(tiles, positions)
 grid=classifier.build_production_grid(predictions=predictions)
 print(predictions[0])
 print(grid)
+
+result=classifier.overlay_prediction(img=image,predictions=predictions)
+
+cv.imshow("overlay",cv.cvtColor(result,cv.COLOR_RGB2BGR))
+cv.waitKey(0)
+cv.destroyAllWindows
