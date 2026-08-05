@@ -74,6 +74,26 @@ class LandCoverClassifier:
 
         return predictions
 
+    def build_production_grid(self,predictions):
+
+        max_y=max(p["position"][0] for p in predictions)
+        max_x=max(p["position"][1] for p in predictions)
+
+        rows = max_y // 224 + 1
+        cols = max_x // 224 + 1
+
+        grid= [[None for _ in range(cols)] for _ in range(rows)]
+
+        for prediction in predictions:
+
+            y, x = prediction["position"]
+
+            row = y // 224
+            col = x // 224
+
+            grid[row][col] = prediction["class"]
+        return grid
+
 
 classifier = LandCoverClassifier(
     "/home/vaibhav/programming_projects/python/Satellite-deforestation-detection-/eurosat_resnet50_v5-finetunning20.keras")
@@ -82,5 +102,6 @@ image = classifier.load_image("images/test.jpg")
 tiles, positions = classifier.tile_img(image)
 
 predictions = classifier.predict_tiles(tiles, positions)
-
+grid=classifier.build_production_grid(predictions=predictions)
 print(predictions[0])
+print(grid)
