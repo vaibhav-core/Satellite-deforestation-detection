@@ -121,6 +121,19 @@ class LandCoverClassifier:
 
         return result
 
+    def calculate_stats(self,predictions):
+        class_count={}
+        for prediction in predictions:
+            class_name=prediction["class"]
+
+            if class_name not in class_count:
+                class_count[class_name]=0
+            class_count[class_name]+=1
+        total_tiles=len(predictions)
+        percetages={}
+        for class_name,count in class_count.items():
+            percetages[class_name]=(count/total_tiles)*100
+        return percetages
 
 classifier = LandCoverClassifier(
     "/home/vaibhav/programming_projects/python/Satellite-deforestation-detection-/eurosat_resnet50_v5-finetunning20.keras")
@@ -134,6 +147,11 @@ print(predictions[0])
 print(grid)
 
 result=classifier.overlay_prediction(img=image,predictions=predictions)
+
+stats=classifier.calculate_stats(predictions)
+
+for class_name,percentage in stats.items():
+    print(f"{class_name} {percentage:.2f}")
 
 cv.imshow("overlay",cv.cvtColor(result,cv.COLOR_RGB2BGR))
 cv.waitKey(0)
