@@ -5,3 +5,4 @@ EuroSAT/
 checkpoints/
 logs/
 .venv/
+venv/

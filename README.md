@@ -232,3 +232,42 @@ The classifier used throughout the remainder of this project is the model obtain
 - **Optimizer:** Adam (`learning_rate = 1e-5`)
 - **Loss Function:** Sparse Categorical Crossentropy
 - **Early Stopping:** `patience=5`, `restore_best_weights=True`
+
+---
+
+## Inference Pipeline (`classifier.py`)
+
+To utilize the trained model for predicting land cover on large satellite images, a robust inference pipeline is implemented in the `LandCoverClassifier` class.
+
+### Key Features
+- **Image Tiling:** Automatically pads and divides images into `224x224` tiles for block-by-block inference.
+- **Prediction Mapping:** Reconstructs predictions into a spatial grid mapping the land cover class for each region.
+- **Visual Overlay:** Generates an overlay on the original image, color-coding regions based on the predicted class.
+- **Statistics Calculation:** Calculates the percentage of area covered by each land cover class across the image.
+
+### Usage Example
+```python
+from classifier import LandCoverClassifier
+import cv2 as cv
+
+# Initialize classifier with the best trained model
+classifier = LandCoverClassifier("eurosat_resnet50_v5-finetunning20.keras")
+
+# Load image
+image = classifier.load_image("images/test.jpg")
+
+# Tile image
+tiles, positions = classifier.tile_img(image)
+
+# Run inference
+predictions = classifier.predict_tiles(tiles, positions)
+
+# Generate results
+grid = classifier.build_production_grid(predictions)
+stats = classifier.calculate_stats(predictions)
+result_overlay = classifier.overlay_prediction(image, predictions)
+
+# View statistics
+for class_name, percentage in stats.items():
+    print(f"{class_name}: {percentage:.2f}%")
+```

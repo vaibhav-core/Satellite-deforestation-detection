@@ -135,6 +135,9 @@ class LandCoverClassifier:
             percetages[class_name]=(count/total_tiles)*100
         return percetages
 
+def load_img():
+    
+
 classifier = LandCoverClassifier(
     "/home/vaibhav/programming_projects/python/Satellite-deforestation-detection-/eurosat_resnet50_v5-finetunning20.keras")
 
