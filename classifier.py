@@ -41,7 +41,7 @@ class LandCoverClassifier:
             raise FileNotFoundError(imgpath)
 
         img=cv.cvtColor(img,cv.COLOR_BGR2RGB)
-        img=cv.resize(img,(224,224))
+        #img=cv.resize(img,(224,224))
 
         return img
 
@@ -136,7 +136,7 @@ class LandCoverClassifier:
         return percetages
 
 def load_img():
-    
+
 
 classifier = LandCoverClassifier(
     "/home/vaibhav/programming_projects/python/Satellite-deforestation-detection-/eurosat_resnet50_v5-finetunning20.keras")
