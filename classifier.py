@@ -35,16 +35,6 @@ class LandCoverClassifier:
         self.model=tf.keras.models.load_model(modelpath)
         print("Model Loaded Successfully")
 
-    def load_image(self,imgpath):
-        img=cv.imread(imgpath)
-        if img is None:
-            raise FileNotFoundError(imgpath)
-
-        img=cv.cvtColor(img,cv.COLOR_BGR2RGB)
-        #img=cv.resize(img,(224,224))
-
-        return img
-
     def tile_img(self,img):
         height,width=img.shape[:2]
 
@@ -158,4 +148,4 @@ for class_name,percentage in stats.items():
 
 cv.imshow("overlay",cv.cvtColor(result,cv.COLOR_RGB2BGR))
 cv.waitKey(0)
-cv.destroyAllWindows
+cv.destroyAllWindows()

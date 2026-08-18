@@ -1,6 +1,6 @@
 import os
 from tensorflow.keras.applications.resnet50 import preprocess_input
-os.environ["XLA_FLAGS"] = "--xla_gpu_cuda_data_dir=/usr/lib/cuda"
+#os.environ["XLA_FLAGS"] = "--xla_gpu_cuda_data_dir=/usr/lib/cuda"
 
 from tensorflow.keras import layers, models
 from tensorflow.keras.applications import ResNet50
